@@ -1,31 +1,69 @@
-import * as React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
 
-import { StyleSheet, View, Text } from 'react-native';
-import ReanimatedBottomsheet from 'react-native-reanimated-bottomsheet';
+import React from 'react';
+import { View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
 
-export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+import BottomSheet from 'react-native-reanimated-bottomsheet';
 
-  React.useEffect(() => {
-    ReanimatedBottomsheet.multiply(3, 7).then(setResult);
-  }, []);
+const App: () => React.ReactNode = () => {
+  const sheetContent = (): React.ReactNode => (
+    <FlatList
+      style={{ padding: 10 }}
+      data={[
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+      ]}
+      renderItem={() => (
+        <View
+          style={{ backgroundColor: 'yellow', height: 30, marginBottom: 5 }}
+        />
+      )}
+    />
+  );
+
+  const sheetHeader = (): React.ReactNode => (
+    <View
+      style={{
+        height: 30,
+        backgroundColor: '#D2CECD',
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+      }}
+    />
+  );
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
+    <BottomSheet
+      snapPoints={[200, 400, 450]}
+      renderContent={sheetContent}
+      renderHeader={sheetHeader}
+    />
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
-});
+};
+export default App;
