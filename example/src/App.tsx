@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -8,62 +7,57 @@
  */
 
 import React from 'react';
-import { View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
 
 import BottomSheet from 'react-native-reanimated-bottomsheet';
 
 const App: () => React.ReactNode = () => {
   const sheetContent = (): React.ReactNode => (
-    <FlatList
-      style={{ padding: 10 }}
-      data={[
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-      ]}
-      renderItem={() => (
-        <View
-          style={{ backgroundColor: 'yellow', height: 30, marginBottom: 5 }}
-        />
-      )}
-    />
+    <View style={styles.sheetContentContainer} />
   );
 
   const sheetHeader = (): React.ReactNode => (
-    <View
-      style={{
-        height: 30,
-        backgroundColor: '#D2CECD',
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-      }}
-    />
+    <View style={styles.sheetHeaderContainer}>
+      <View style={styles.knob} />
+    </View>
   );
 
   return (
-    <BottomSheet
-      snapPoints={[200, 400, 450]}
-      renderContent={sheetContent}
-      renderHeader={sheetHeader}
-    />
+    <SafeAreaView style={styles.safeAreaView}>
+      <BottomSheet
+        snapPoints={[200, 400, 600]}
+        renderContent={sheetContent}
+        renderHeader={sheetHeader}
+      />
+      <Text>Welcome to the BottomSheet example.</Text>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sheetHeaderContainer: {
+    height: 30,
+    backgroundColor: '#282727',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  knob: {
+    width: 40,
+    height: 5,
+    borderRadius: 5,
+    backgroundColor: '#72706F',
+  },
+  sheetContentContainer: {
+    flex: 1,
+    backgroundColor: '#282727',
+  },
+});
 export default App;
