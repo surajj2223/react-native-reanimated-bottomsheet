@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import Animated, {
   useSharedValue,
@@ -7,6 +6,7 @@ import Animated, {
   useAnimatedGestureHandler,
 } from 'react-native-reanimated';
 import { PanGestureHandler } from 'react-native-gesture-handler';
+import { StyleSheet } from 'react-native';
 
 enum GESTURE {
   DRAGGING_UP,
@@ -80,19 +80,8 @@ export default ({
 
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
-      <Animated.View
-        style={[
-          {
-            width: '100%',
-            position: 'absolute',
-            bottom: 0,
-            height: 20,
-            borderRadius: 4,
-          },
-          animatedStyle,
-        ]}
-      >
-        <Animated.View style={{ flex: 1 }}>
+      <Animated.View style={[styles.sheetContainer, animatedStyle]}>
+        <Animated.View style={styles.sheetInnerContainer}>
           {renderHeader()}
           {renderContent()}
         </Animated.View>
@@ -100,3 +89,18 @@ export default ({
     </PanGestureHandler>
   );
 };
+
+const styles = StyleSheet.create({
+  sheetContainer: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    height: 20,
+    borderRadius: 4,
+  },
+  sheetInnerContainer: {
+    flex: 1,
+    shadowOpacity: 0.5,
+    shadowOffset: { height: -1, width: 0 },
+  },
+});
