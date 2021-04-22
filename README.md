@@ -1,6 +1,8 @@
 # react-native-reanimated-bottomsheet
 
-A confifigurable and performant BottomSheet widget for React Native apps built using Reanimated v2 API.
+A configurable and performant BottomSheet widget for React Native apps built using Reanimated v2 API.
+
+![](example.gif)
 
 ## Installation
 
