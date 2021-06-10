@@ -1,6 +1,6 @@
 {
   "name": "react-native-reanimated-bottomsheet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A configurable and performant BottomSheet widget for React Native apps built using Reanimated v2 API.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
