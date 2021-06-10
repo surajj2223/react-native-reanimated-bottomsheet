@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -6,12 +7,15 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { SafeAreaView, StyleSheet, View, Text, Button } from 'react-native';
 
 import BottomSheet from 'react-native-reanimated-bottomsheet';
 
 const App: () => React.ReactNode = () => {
+  const sheetRef = useRef(null);
+  const [sheetStatus, setSheetStatus] = useState<boolean>(false);
+
   const sheetContent = (): React.ReactNode => (
     <View style={styles.sheetContentContainer} />
   );
@@ -24,12 +28,24 @@ const App: () => React.ReactNode = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
+      <View style={{ flex: 1 }}>
+        <Button
+          onPress={() => {
+            if (sheetStatus) sheetRef.current.close();
+            else sheetRef.current.open();
+            setSheetStatus(!sheetStatus);
+          }}
+          title={sheetStatus ? 'close' : 'open'}
+        />
+        <Text>Welcome to the BottomSheet example.</Text>
+      </View>
       <BottomSheet
-        snapPoints={[200, 400, 600]}
+        ref={sheetRef}
+        initialSnap={0}
+        snapPoints={[200, 400]}
         renderContent={sheetContent}
         renderHeader={sheetHeader}
       />
-      <Text>Welcome to the BottomSheet example.</Text>
     </SafeAreaView>
   );
 };
@@ -38,8 +54,6 @@ const styles = StyleSheet.create({
   safeAreaView: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   sheetHeaderContainer: {
     height: 30,

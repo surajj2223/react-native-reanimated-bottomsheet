@@ -1,6 +1,6 @@
 {
   "name": "react-native-reanimated-bottomsheet",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "A configurable and performant BottomSheet widget for React Native apps built using Reanimated v2 API.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -34,7 +34,11 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "bottom-sheet",
+    "reanimated2",
+    "react-native-bottomsheet",
+    "swipeable-sheet"
   ],
   "repository": "https://github.com/surajj2223/react-native-reanimated-bottomsheet",
   "author": "Suraj Malviya <23surajj95@gmail.com> (https://github.com/surajj2223)",
