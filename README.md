@@ -7,7 +7,13 @@ A configurable and performant BottomSheet widget for React Native apps built usi
 ## Installation
 
 ```sh
-yarn install react-native-reanimated-bottomsheet
+yarn add react-native-reanimated-bottomsheet
+```
+
+or
+
+```sh
+npm install react-native-reanimated-bottomsheet
 ```
 #### Dont forget to install Reanimated and GestureHandler libraries
 
