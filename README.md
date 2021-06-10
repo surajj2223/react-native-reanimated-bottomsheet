@@ -15,13 +15,22 @@ or
 ```sh
 npm install react-native-reanimated-bottomsheet
 ```
-#### Dont forget to install Reanimated and GestureHandler libraries
+### Dont forget to install Reanimated and GestureHandler libraries
 
 ```sh
-yarn install react-native-reanimated
-yarn install react-native-gesture-handler
+yarn add react-native-reanimated
+yarn add react-native-gesture-handler
 ```
-#### Add Reanimated's babel plugin to your `babel.config.js`
+
+or
+
+```sh
+npm install react-native-reanimated
+npm install react-native-gesture-handler
+```
+
+
+### Add Reanimated's babel plugin to your `babel.config.js`
 ```js
  module.exports = {
       ...
@@ -33,8 +42,46 @@ yarn install react-native-gesture-handler
 ```
 * Note: Reanimated plugin has to be listed last.
 
-Thats it! You are done with installation!
+### **Few extra miles for Android**
 
+- Turn on Hermes engine by editing `android/app/build.gradle` (if you use Hermes)
+    ```js
+    project.ext.react = [
+    enableHermes: true  // <- here | clean and rebuild if changing
+    ]
+    ```
+
+- Plug Reanimated in MainApplication.java
+    ```js
+    import com.facebook.react.bridge.JSIModulePackage; // <- add
+    import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
+    ...
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    ...
+
+        @Override
+        protected String getJSMainModuleName() {
+            return "index";
+        }
+
+        @Override
+        protected JSIModulePackage getJSIModulePackage() {
+            return new ReanimatedJSIModulePackage(); // <- add
+        }
+        };
+    ...
+    ```
+
+- Proguard
+
+    If you're using Proguard, make sure to add rule preventing it from optimizing Turbomodule classes:
+
+    `-keep class com.facebook.react.turbomodule.** { *; }`
+
+
+#### Thats it! You are done with installation 🚀
+
+<br>
 
 ## Usage
 
@@ -61,6 +108,8 @@ import ReanimatedBottomsheet from "react-native-reanimated-bottomsheet";
 | springConfig | no       | `{damping: 50, mass: 0.5, stiffness: 121.6, restSpeedThreshold: 0.3}`  | Spring config for Bottom Sheet snap/open/close animation of type: `WithSpringConfig`|
 ----------------------------
 
+<br>
+
 ## Methods
 
 ### `open()`
@@ -68,16 +117,16 @@ import ReanimatedBottomsheet from "react-native-reanimated-bottomsheet";
 Imperative method on for snapping the sheet to 0th snap point. E.g.
 
 ```javascript
-// Snap to the snap point at index 0 (e.g. 450 in [200, 300, 400])
+// Snap to the snap point at index 0 (e.g. 200 in [200, 300, 400])
 this.bottomSheetRef.current.open();
 ```
 
-### `close()`
+### `snapTo(index: number)`
 
-Imperative method on for snapping the sheet to 0 height. E.g.
+Imperative method on for snapping the sheet to a known index. E.g.
 
 ```javascript
-this.bottomSheetRef.current.close();
+this.bottomSheetRef.current.snapTo(index);
 ```
 
 Here `this.bottomSheetRef` refers [to the `ref`](https://reactjs.org/docs/react-api.html#reactcreateref) passed to the `BottomSheet` component.
