@@ -55,8 +55,13 @@ export default React.forwardRef(
       close: () => {
         sheetHeight.value = withSpring(0, defaultSpringConfig);
       },
-      open: () => {
-        sheetHeight.value = withSpring(snapPoints[0], defaultSpringConfig);
+      snapTo: (index: number) => {
+        if (index < snapPoints.length - 1) {
+          sheetHeight.value = withSpring(
+            snapPoints[index],
+            defaultSpringConfig
+          );
+        }
       },
     }));
 
