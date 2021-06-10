@@ -72,12 +72,16 @@ export default React.forwardRef(
       let neearestSnapPoint: number = maxHeight;
 
       for (let snapIndex in snapPoints) {
+        const numberedSnapIndex = Number(snapIndex);
         if (sheetHeight.value - snapPoints[snapIndex] < 0) {
           if (gestureDirection.value === GESTURE.DRAGGING_UP) {
             neearestSnapPoint = snapPoints[snapIndex];
           } else {
-            neearestSnapPoint =
-              snapPoints[snapIndex - 1 >= 0 ? snapIndex - 1 : snapIndex];
+            const nearestSnapIndex: number =
+              numberedSnapIndex - 1 >= 0
+                ? numberedSnapIndex - 1
+                : numberedSnapIndex;
+            neearestSnapPoint = snapPoints[nearestSnapIndex];
           }
           break;
         }
@@ -85,14 +89,14 @@ export default React.forwardRef(
       return neearestSnapPoint;
     };
 
-    const adjustSnap = (_) => {
+    const adjustSnap = (_: any) => {
       'worklet';
       const nearestSnapPoint = getNearestSnap();
       sheetHeight.value = withSpring(nearestSnapPoint, springConfig);
     };
 
     const gestureHandler = useAnimatedGestureHandler({
-      onStart: (_, ctx) => {
+      onStart: (_, ctx: any) => {
         ctx.startY = sheetHeight.value;
       },
 
