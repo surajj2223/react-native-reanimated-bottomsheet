@@ -21,7 +21,7 @@ interface SheetProps {
   renderContent: () => React.ReactNode;
   renderHeader: () => React.ReactNode;
   springConfig?: Animated.WithSpringConfig;
-  fixedHeight?: boolean;
+  hasFixedHeight?: boolean;
 }
 
 const defaultSpringConfig: Animated.WithSpringConfig = {
@@ -39,14 +39,14 @@ export default React.forwardRef(
       renderContent,
       renderHeader,
       enabledGestureInteraction = true,
-      fixedHeight = false,
+      hasFixedHeight = false,
       springConfig = defaultSpringConfig,
     }: SheetProps,
     ref
   ) => {
     const maxHeight = snapPoints[snapPoints.length - 1];
     const defaultHeight = initialSnap ? snapPoints[initialSnap] : snapPoints[0];
-    const sheetHeight = fixedHeight
+    const sheetHeight = hasFixedHeight
       ? useSharedValue(0)
       : useSharedValue(defaultHeight);
     const gestureDirection = useSharedValue(GESTURE.DRAGGING_UP);
@@ -66,7 +66,7 @@ export default React.forwardRef(
     }));
 
     useEffect(() => {
-      if (fixedHeight) {
+      if (hasFixedHeight) {
         sheetHeight.value = withSpring(snapPoints[0], defaultSpringConfig);
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
